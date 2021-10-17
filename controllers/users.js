@@ -4,7 +4,7 @@ const getUsers = (req, res) => User.find({})
   .then((users) => res.status(200).send({ users }))
   .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 
-const getUserById = (req, res) => User.findById(req.params._id)
+const getUserById = (req, res) => User.findById(req.params.id)
   .then((user) => {
     if (!user) {
       return res.status(404).send({ message: 'Пользователь с таким id не найден' });

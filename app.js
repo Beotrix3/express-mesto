@@ -22,6 +22,10 @@ app.use((req, res, next) => {
 app.use('/', userRouter);
 app.use('/', cardsRouter);
 
+app.use((req, res) => {
+  return res.status(404).send({ message: 'Страница не найдена' });
+});
+
 function getStart() {
   try {
     mongoose.connect('mongodb://localhost:27017/mestodb', {
