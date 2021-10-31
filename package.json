@@ -20,9 +20,16 @@
   },
   "homepage": "https://github.com/Beotrix3/express-mesto#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "celebrate": "^15.0.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "mongoose": "^6.0.10"
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.10",
+    "throw": "^1.1.1",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

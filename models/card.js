@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { linkRegex } = require("../middlewares/validation");
 
 const cardSchema = new Schema({
   name: {
@@ -10,6 +11,12 @@ const cardSchema = new Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator(link) {
+        return linkRegex.test(link);
+      },
+      message: 'Cсылка',
+    }
   },
   owner: {
     type: Schema.Types.ObjectId,

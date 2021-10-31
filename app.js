@@ -1,8 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userRouter = require('./routes/users');
+const cookieParser = require('cookie-parser');
+const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
+const auth = require('./middlewares/auth');
+const { login, createUser } = require('./controllers/users');
+const { validLogin, validUser } = require('./middlewares/validation');
+const NotFound = require('./errors/NotFound');
 
 const { PORT = 3000 } = process.env;
 
@@ -11,31 +18,38 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '616b0bed80eeaa8575fe43ec'
-  };
+app.use(helmet());
 
+app.use(cookieParser());
+
+app.post('/signin', validLogin, login);
+app.post('/signup', validUser, createUser);
+
+app.use('/', auth, usersRouter);
+app.use('/', auth, cardsRouter);
+
+app.use('*', () => {
+  throw new NotFound('Запрашиваемый ресурс не найден');
+});
+
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use(errors());
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+
+  res
+    .status(statusCode)
+    .send({
+      message: statusCode === 500
+        ? 'На сервере произошла ошибка'
+        : message,
+    });
   next();
 });
 
-app.use('/', userRouter);
-app.use('/', cardsRouter);
-
-app.use((req, res) => {
-  return res.status(404).send({ message: 'Страница не найдена' });
-});
-
-function getStart() {
-  try {
-    mongoose.connect('mongodb://localhost:27017/mestodb', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    app.listen(PORT, () => console.log(`App listining on port: >>> ${PORT} <<<`));
-  } catch (e) {
-    console.log('Server ERROR: >>>', e.message);
-  }
-}
-
-getStart();
+app.listen(PORT);
