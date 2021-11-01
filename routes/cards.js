@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const { Router } = require('express');
 
 const {
@@ -19,11 +20,10 @@ cardsRouter.get('/cards', getCards);
 
 cardsRouter.post('/cards', validCard, createCard);
 
-cardsRouter.delete('/cards/:id', validId, deleteCard);
+cardsRouter.delete('/cards/:_id', validId, deleteCard);
 
-cardsRouter.put('/cards/:id/likes', validId, likeCard);
+cardsRouter.put('/cards/:_id/likes', validId, likeCard);
 
-cardsRouter.delete('/cards/:id/likes', validId, dislikeCard);
-
+cardsRouter.delete('/cards/:_id/likes', validId, dislikeCard);
 
 module.exports = cardsRouter;

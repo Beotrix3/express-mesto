@@ -1,12 +1,12 @@
-const { Schema, model } = require("mongoose");
-const { linkRegex } = require("../middlewares/validation");
+const { Schema, model } = require('mongoose');
+const { linkRegex } = require('../middlewares/validation');
 
 const cardSchema = new Schema({
   name: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: true
+    required: true,
   },
   link: {
     type: String,
@@ -16,22 +16,22 @@ const cardSchema = new Schema({
         return linkRegex.test(link);
       },
       message: 'Cсылка',
-    }
+    },
   },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'user',
-    required: 'true'
+    required: 'true',
   },
   likes: [{
     type: Schema.Types.ObjectId,
     ref: 'user',
-    default: []
+    default: [],
   }],
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = model('Card', cardSchema);

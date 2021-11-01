@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const { Router } = require('express');
 
 const {
@@ -18,9 +19,9 @@ const usersRouter = Router();
 
 usersRouter.get('/users', getUsers);
 
-usersRouter.get('/users/me', validId, getCurrentUser);
+usersRouter.get('/users/me', getCurrentUser);
 
-usersRouter.get('/users/:id', validId, getUserById);
+usersRouter.get('/users/:_id', validId, getUserById);
 
 usersRouter.patch('/users/me', validAbout, updateUser);
 

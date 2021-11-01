@@ -6,14 +6,14 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "npx eslint . --fix"
+    "lint": "npx eslint --fix --ext .js ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Beotrix3/express-mesto.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexey Grebnev",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Beotrix3/express-mesto/issues"
@@ -28,13 +28,12 @@
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
-    "throw": "^1.1.1",
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "eslint": "^8.1.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-import": "^2.25.2",
     "nodemon": "^2.0.13"
   }
 }
